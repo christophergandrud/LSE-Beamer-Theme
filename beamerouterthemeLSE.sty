@@ -1,0 +1,116 @@
+% This file may be distributed and/or modified
+% Modified from BerlinFU theme
+% Includes footer from Bunsen theme
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackage{beamerouterthemeLSE}[2011/12/27]
+
+\mode<presentation>
+
+\definecolor{uipaleblue}{RGB}{96,123,139}
+
+
+% Logo for the title page
+
+\setlength\textwidth{\paperwidth}
+\addtolength\textwidth{-30pt}
+\setbeamersize{text margin left=15pt,text margin right=15pt}
+\newlength\LSE@image@width\setlength\LSE@image@width{5cm}
+\newlength\LSE@image@height\setlength\LSE@image@height{2.5cm}
+\newlength\LSE@rule\setlength\LSE@rule{0.6pt}
+
+\expandafter\pgfdeclareimage\expandafter[height=\the\LSE@image@height]{bib}{lse-logo.png}
+\newlength\titlevsep\setlength\titlevsep{2mm}
+\newsavebox\LSE@box\savebox\LSE@box{\pgfuseimage{bib}}
+
+
+% Sidebar
+
+\setbeamertemplate*{sidebar left}{}
+\setbeamertemplate*{sidebar right}{}
+\setbeamertemplate*{sidebar canvas left}{}
+\setbeamertemplate*{sidebar canvas right}{}
+
+% Footer styling
+\setbeamercolor{section in footer}{fg=white,bg=uipaleblue}
+\setbeamercolor{subsection in footer}{fg=white,bg=uipaleblue}
+\setbeamercolor{pagenumber in footer}{fg=white,bg=uipaleblue}
+
+\defbeamertemplate*{footline}{LSE}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.33\paperwidth,ht=2.25ex,dp=1ex,center]{section in footer}%
+    \insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in footer}%
+    \insertsectionhead
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.25ex,dp=1ex,center]{pagenumber in footer}%
+   \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% Headline
+\setbeamertemplate{headline}{
+\vskip6pt\color{bg=uipaleblue}\rule{\textwidth}{0.4pt} % horizontal line
+}
+
+% Frame title: LSE
+
+\defbeamertemplate{frametitle}{LSE}{%
+  \vspace*{1mm}
+  {\usebeamerfont*{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}\\[-0.5\normalbaselineskip]
+  {\usebeamercolor{separation line}\hspace*{-15pt}\rule{\paperwidth}{\LSE@rule}}\par\vspace{-1.5ex}}
+
+\def\beamer@fteright{\vskip0.35cm\advance\leftskip by 1.7cm\advance\rightskip by1.7cm}
+
+% Frame title continuations, LSE
+\defbeamertemplate*{frametitle continuation}{LSE}{\insertcontinuationcountroman}
+
+\mode
+<all>
+{
+  \renewcommand\titlegraphic[2][]{%
+    \edef\inserttitlegraphic{%
+      \ifx\relax#2\relax\else
+        \noexpand\includegraphics[height=\LSE@image@height,width=\the\numexpr\textwidth-\wd\LSE@box\relax sp,
+          %viewpoint=0 0 \the\numexpr\LSE@image@width-2\wd\LSE@box\relax sp \LSE@image@height,clip
+          aspectratio=false,#1]{#2}%
+      \fi}%
+    }%
+  \titlegraphic{lse_old_building.png}
+}
+
+\mode
+<all>
+  \newcommand\fachbereich[1]{\def\insertfachbereich{#1}}
+  \fachbereich{}%
+
+\defbeamertemplate*{title page}{LSE}{%
+  \vspace*{-0.5ex}
+%  \mbox{}\hfill\pgfuseimage{logo}\par
+  \begingroup\fboxsep=0pt
+  \colorbox{}{\makebox[\textwidth][l]{\rule{0pt}{\LSE@image@height}\pgfuseimage{bib}%
+    \inserttitlegraphic}}
+  \endgroup
+  \par\vfill
+  {\usebeamerfont{title}\usebeamercolor[fg]{frametitle}\inserttitle}\\[\titlevsep]
+  \ifx\insertsubtitle\@empty\else\vskip0.25em%
+    {\usebeamerfont{subtitle}\insertsubtitle\par}%
+  \fi%
+  \par\vfill
+  \begin{beamercolorbox}[sep=0pt]{author}
+    {\usebeamerfont{author}\insertauthor}\\
+    {\usebeamerfont{institute}\insertinstitute}
+  \end{beamercolorbox}
+  \par\vfill
+  {\usebeamerfont{date}\usebeamercolor*[fg]{date}\insertdate%\rule[-.5ex]{0pt}{.5ex}
+  }\par\vfill~\vspace*{-\fill}}
+
+\endinput
